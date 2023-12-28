@@ -1,3 +1,3 @@
-﻿# Offical Rust Intro Book
+﻿# Rust Intro
 
-https://doc.rust-lang.org/book/title-page.html
+Offical Rust Intro Book: https://doc.rust-lang.org/book/title-page.html
