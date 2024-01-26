@@ -10,24 +10,35 @@ fn main() {
 
     println!("The secret number is: {secret_number}");
 
-    println!("Please input your guess.");
+    loop {
+        println!("Please input your guess.");
 
-    // String::new() - :: an associated function of the String type
-    let mut guess = String::new();
+        // String::new() - :: an associated function of the String type
+        let mut guess = String::new();
 
-    // Could also not import the library and do the function call: std::io::stdin
-    // stdin is a function that returns an instance of the library 
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line"); // If the Result is returned as Err - handle with this.
-    
-    println!("You guessed: {guess}");
+        // Could also not import the library and do the function call: std::io::stdin
+        // stdin is a function that returns an instance of the library 
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Failed to read line"); // If the Result is returned as Err - handle with this.
 
-    // Compares two numbers 
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small!"),
-        Ordering::Greater => println!("Too big!"),
-        Ordering::Equal => println!("You win!"),
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num, // Parse will return Err if so. which won't match Ok(num)
+            Err(_) => continue, // _ catchall value - any Err values, no matter contained information
+        };
+
+
+        println!("You guessed: {guess}");
+
+        // Compares two numbers 
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small!"),
+            Ordering::Greater => println!("Too big!"),
+            Ordering::Equal => {
+                println!("You win!");
+                break;
+            }
+        }
     }
 }
 
